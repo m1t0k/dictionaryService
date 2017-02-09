@@ -22,3 +22,12 @@ _testmain.go
 *.exe
 *.test
 *.prof
+system-config.js*
+app/**/*.js
+app/**/*.map
+node_modules
+jspm_packages
+bower_components
+aot/*
+dist/*
+yarn.lock
