@@ -4,7 +4,7 @@ import (
 	"log"
 
 	appCfg "../config/"
-	ctrl "../gin/controllers/"
+	controllers "../gin/controllers/"
 	"github.com/gin-gonic/gin"
 )
 
@@ -19,7 +19,7 @@ func Run() {
 	router.Use(gin.Recovery())
 	v1 := router.Group("/v1")
 
-	dicController := ctrl.DictionaryController{}
+	dicController := controllers.DictionaryController{}
 	dicController.Register(v1)
 
 	err = router.Run(":8999")

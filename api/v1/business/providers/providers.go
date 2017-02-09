@@ -1,45 +1,41 @@
 package providers
 
 import (
-	"time"
-
-	EventDb "../db"
+	MongoDb "../db/mongo/"
+	DicTypes "../types/"
 )
 
 /*
-EventProvider type
+DictionaryProvider type
 */
 type DictionaryProvider struct {
-	dbp EventDb.EventDbProvider
+	dbProvider MongoDb.MongoDbDicProvider
 }
 
 /*
 insert event into mongo db
 */
-func (dp *DictionaryProvider) GetDictionaryList(event EventTypes.Event) bool {
-	if event.CreatedAt.IsZero() {
-		event.CreatedAt = time.Now().UTC()
-	}
-	return ep.dbp.DbInsertEvent(event)
+func (dicProvider *DictionaryProvider) GetDictionaryList() ([]DicTypes.MetaInfoItem, error) {
+	return dicProvider.dbProvider.GetDictionaryList()
 }
 
 /*
 /get full event list
 */
-func (dp *DictionaryProvider) GetDictionaryDescription(dicCode string, ver string) ([]EventTypes.Event, error) {
-	return ep.dbp.DbGetEventList()
+func (dicProvider *DictionaryProvider) GetDictionaryDesc(dicCode string) (DicTypes.MetaInfoItem, error) {
+	return dicProvider.dbProvider.GetDictionaryDesc(dicCode)
 }
 
 /*
 get event by id
 */
-func (dp *DictionaryProvider) GetDictionary(dicCode string, ver string) (EventTypes.Event, error) {
-	return ep.dbp.DbGetEvent(id)
+func (dicProvider *DictionaryProvider) GetDictionaryItems(dicCode string) ([]DicTypes.DicItem, error) {
+	return dicProvider.dbProvider.GetDictionaryItems(dicCode)
 }
 
 /*
 get event by id
 */
-func (dp *DictionaryProvider) GetDictionaryItem(dicCode string, ver string, id string) (EventTypes.Event, error) {
-	return ep.dbp.DbGetEvent(id)
+func (dicProvider *DictionaryProvider) GetDictionaryItem(dicCode string, code string) (DicTypes.DicItem, error) {
+	return dicProvider.dbProvider.GetDictionaryItem(dicCode, code)
 }
