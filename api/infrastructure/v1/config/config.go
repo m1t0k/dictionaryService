@@ -11,15 +11,14 @@ type Configuration struct {
 	DbName   string
 }
 
-//AppConfiguration stores global gonfiguration settings
-var AppConfiguration Configuration
-
 //ReadConfig reads Global Configuration
-func ReadConfig() error {
+func ReadConfig() (Configuration, error) {
+	var config Configuration
 	file, err := os.Open("../conf.json")
 	if err != nil {
-		return err
+		return config, err
 	}
 	decoder := json.NewDecoder(file)
-	return decoder.Decode(&AppConfiguration)
+	err = decoder.Decode(&config)
+	return config, err
 }

@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	dicProvider "../../../../logic/v1/business/"
+	Config "../../config/"
 	"github.com/gin-gonic/gin"
 )
 
@@ -12,10 +13,16 @@ type DictionaryController struct {
 	dicProvider dicProvider.IDictionaryProvider
 }
 
+// CreateDictionaryController instance of DictionaryController
+func CreateDictionaryController(settings Config.Configuration) *DictionaryController {
+	var controller DictionaryController
+	controller.dicProvider = dicProvider.CreateDictionaryProvider(settings.DbServer, settings.DbName)
+	return &controller
+}
+
 // GetDictionaryList returns list of dictionaries
 func (controller *DictionaryController) GetDictionaryList(context *gin.Context) {
-	dbProvider := dicProvider.CreateDictionaryProvider("", "")
-	var result, err = dbProvider.GetDictionaryList()
+	var result, err = controller.dicProvider.GetDictionaryList()
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, err)
 	} else {

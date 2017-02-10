@@ -10,7 +10,7 @@ import (
 
 //Run runs web app
 func Run() {
-	err := appCfg.ReadConfig()
+	config, err := appCfg.ReadConfig()
 	if err != nil {
 		log.Fatalf("Can't start http server:%s.\n", err)
 	}
@@ -19,7 +19,7 @@ func Run() {
 	router.Use(gin.Recovery())
 	v1 := router.Group("/v1")
 
-	dicController := controllers.DictionaryController{}
+	dicController := controllers.CreateDictionaryController(config)
 	dicController.Register(v1)
 
 	err = router.Run(":8999")
