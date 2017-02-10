@@ -1,10 +1,9 @@
 package ginControllers
 
 import (
-	"net/http"
-
 	dicProvider "../../../../logic/v1/business/"
 	Config "../../config/"
+	Middleware "../middleware/"
 	"github.com/gin-gonic/gin"
 )
 
@@ -23,45 +22,29 @@ func CreateDictionaryController(settings Config.Configuration) *DictionaryContro
 // GetDictionaryList returns list of dictionaries
 func (controller *DictionaryController) GetDictionaryList(context *gin.Context) {
 	var result, err = controller.dicProvider.GetDictionaryList()
-	if err != nil {
-		context.JSON(http.StatusInternalServerError, err)
-	} else {
-		context.JSON(http.StatusOK, result)
-	}
+	Middleware.ProcessResultsHandler(result, err, context)
 }
 
 // GetDictionaryDesc returns description for the selected dictionary
 func (controller *DictionaryController) GetDictionaryDesc(context *gin.Context) {
-	dicCode := context.Param("dicCode")
+	dicCode := Middleware.ValidateStringParameterHanlder(context, "dicCode", true)
 	var result, err = controller.dicProvider.GetDictionaryDesc(dicCode)
-	if err != nil {
-		context.JSON(http.StatusInternalServerError, err)
-	} else {
-		context.JSON(http.StatusOK, result)
-	}
+	Middleware.ProcessResultsHandler(result, err, context)
 }
 
 //GetDictionaryItems returns all items in the dictionary
 func (controller *DictionaryController) GetDictionaryItems(context *gin.Context) {
-	dicCode := context.Param("dicCode")
+	dicCode := Middleware.ValidateStringParameterHanlder(context, "dicCode", true)
 	var result, err = controller.dicProvider.GetDictionaryItems(dicCode)
-	if err != nil {
-		context.JSON(http.StatusInternalServerError, err)
-	} else {
-		context.JSON(http.StatusOK, result)
-	}
+	Middleware.ProcessResultsHandler(result, err, context)
 }
 
 // GetDictionaryItem returns dictionary item
 func (controller *DictionaryController) GetDictionaryItem(context *gin.Context) {
-	dicCode := context.Param("dicCode")
-	code := context.Param("code")
+	dicCode := Middleware.ValidateStringParameterHanlder(context, "dicCode", true)
+	code := Middleware.ValidateStringParameterHanlder(context, "code", true)
 	var result, err = controller.dicProvider.GetDictionaryItem(dicCode, code)
-	if err != nil {
-		context.JSON(http.StatusInternalServerError, err)
-	} else {
-		context.JSON(http.StatusOK, result)
-	}
+	Middleware.ProcessResultsHandler(result, err, context)
 }
 
 // Register DictionaryController in router
@@ -69,5 +52,5 @@ func (controller *DictionaryController) Register(router *gin.RouterGroup) {
 	router.GET("/meta", controller.GetDictionaryList)
 	router.GET("/meta/:dicCode", controller.GetDictionaryDesc)
 	router.GET("/dics/:dicCode", controller.GetDictionaryItems)
-	router.POST("/dics/:dicCode/:code", controller.GetDictionaryItem)
+	router.GET("/dics/:dicCode/:code", controller.GetDictionaryItem)
 }

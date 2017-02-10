@@ -46,17 +46,17 @@ func (db *mongoDbDicProvider) GetDictionaryList() ([]DicTypes.MetaInfoItem, erro
 }
 
 //Get dictionary description
-func (db *mongoDbDicProvider) GetDictionaryDesc(dicCode string) (DicTypes.MetaInfoItem, error) {
+func (db *mongoDbDicProvider) GetDictionaryDesc(dicCode string) (*DicTypes.MetaInfoItem, error) {
 	session, errConn := db.dbConnect()
 	if errConn != nil {
-		return DicTypes.MetaInfoItem{}, errConn
+		return nil, errConn
 	}
 	defer session.Close()
 
 	var metaInfo DicTypes.MetaInfoItem
 	var metaInfoCollection = db.getMetaInfoCollection(session)
 	err := metaInfoCollection.Find(nil).One(&metaInfo)
-	return metaInfo, err
+	return &metaInfo, err
 }
 
 /*
@@ -78,15 +78,15 @@ func (db *mongoDbDicProvider) GetDictionaryItems(dicCode string) ([]DicTypes.Dic
 /*
 Get dictionary item by code
 */
-func (db *mongoDbDicProvider) GetDictionaryItem(dicCode string, code string) (DicTypes.DicItem, error) {
+func (db *mongoDbDicProvider) GetDictionaryItem(dicCode string, code string) (*DicTypes.DicItem, error) {
 	session, errConn := db.dbConnect()
 	if errConn != nil {
-		return DicTypes.DicItem{}, errConn
+		return nil, errConn
 	}
 	defer session.Close()
 
 	var dicItem DicTypes.DicItem
 	var dicItemsCollection = db.getDicsCollection(session)
 	err := dicItemsCollection.Find(nil).One(&dicItem)
-	return dicItem, err
+	return &dicItem, err
 }

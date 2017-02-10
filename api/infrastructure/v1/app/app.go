@@ -22,7 +22,7 @@ func Run() {
 	dicController := controllers.CreateDictionaryController(config)
 	dicController.Register(v1)
 
-	err = router.Run(":8999")
+	err = router.Run(":" + config.Port)
 	if err != nil {
 		log.Fatalf("Can't start http server:%s.\n", err)
 	}

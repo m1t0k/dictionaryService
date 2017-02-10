@@ -29,7 +29,7 @@ func (dicProvider *dictionaryProvider) GetDictionaryList() ([]DicTypes.MetaInfoI
 /*
 /get full event list
 */
-func (dicProvider *dictionaryProvider) GetDictionaryDesc(dicCode string) (DicTypes.MetaInfoItem, error) {
+func (dicProvider *dictionaryProvider) GetDictionaryDesc(dicCode string) (*DicTypes.MetaInfoItem, error) {
 	return dicProvider.dbProvider.GetDictionaryDesc(dicCode)
 }
 
@@ -43,6 +43,6 @@ func (dicProvider *dictionaryProvider) GetDictionaryItems(dicCode string) ([]Dic
 /*
 get event by id
 */
-func (dicProvider *dictionaryProvider) GetDictionaryItem(dicCode string, code string) (DicTypes.DicItem, error) {
+func (dicProvider *dictionaryProvider) GetDictionaryItem(dicCode string, code string) (*DicTypes.DicItem, error) {
 	return dicProvider.dbProvider.GetDictionaryItem(dicCode, code)
 }

@@ -9,6 +9,7 @@ import (
 type Configuration struct {
 	DbServer string
 	DbName   string
+	Port     string
 }
 
 //ReadConfig reads Global Configuration
