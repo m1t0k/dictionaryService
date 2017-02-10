@@ -66,8 +66,8 @@ func (controller *DictionaryController) GetDictionaryItem(context *gin.Context) 
 
 // Register DictionaryController in router
 func (controller *DictionaryController) Register(router *gin.RouterGroup) {
-	router.GET("/dics", controller.GetDictionaryList)
-	router.GET("/dics/:dicCode", controller.GetDictionaryDesc)
-	router.GET("/dics/:dicCode/:ver", controller.GetDictionaryItems)
-	router.POST("/dics/:dicCode/:ver/:id", controller.GetDictionaryItem)
+	router.GET("/meta", controller.GetDictionaryList)
+	router.GET("/meta/:dicCode", controller.GetDictionaryDesc)
+	router.GET("/dics/:dicCode", controller.GetDictionaryItems)
+	router.POST("/dics/:dicCode/:code", controller.GetDictionaryItem)
 }

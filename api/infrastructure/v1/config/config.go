@@ -14,7 +14,7 @@ type Configuration struct {
 //ReadConfig reads Global Configuration
 func ReadConfig() (Configuration, error) {
 	var config Configuration
-	file, err := os.Open("../conf.json")
+	file, err := os.Open("conf.json")
 	if err != nil {
 		return config, err
 	}
