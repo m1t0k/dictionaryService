@@ -9,11 +9,12 @@ import (
 
 // DictionaryController implements http logic over DictionaryProvider
 type DictionaryController struct {
-	dicProvider dicProvider.DictionaryProvider
+	dicProvider dicProvider.IDictionaryProvider
 }
 
 func (controller *DictionaryController) GetDictionaryList(context *gin.Context) {
-	var result, err = controller.dicProvider.GetDictionaryList()
+	dbProvider := dicProvider.CreateDictionaryProvider("", "")
+	var result, err = dbProvider.GetDictionaryList()
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, err)
 	} else {
