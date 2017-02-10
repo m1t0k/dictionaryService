@@ -1,14 +1,13 @@
-package mongoDb
+package db
 
 import (
-	db "../"
-	DicTypes "../../types/"
+	DicTypes "../types/"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
 
 // CreateMongoDbDicProvider creates instance of IDicDbProvider based on mongoDbDicProvider
-func CreateMongoDbDicProvider(dbServer string, dbName string) db.IDicDbProvider {
+func CreateMongoDbDicProvider(dbServer string, dbName string) IDicDbProvider {
 	var provider mongoDbDicProvider
 	provider.DbServer = dbServer
 	provider.DbName = dbName

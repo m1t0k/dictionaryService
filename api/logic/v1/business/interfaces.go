@@ -1,4 +1,4 @@
-package providers
+package business
 
 import (
 	DicTypes "../types/"

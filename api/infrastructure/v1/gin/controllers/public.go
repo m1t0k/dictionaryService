@@ -3,7 +3,7 @@ package ginControllers
 import (
 	"net/http"
 
-	dicProvider "../../../business/providers/"
+	dicProvider "../../../../logic/v1/business/"
 	"github.com/gin-gonic/gin"
 )
 
@@ -12,6 +12,7 @@ type DictionaryController struct {
 	dicProvider dicProvider.IDictionaryProvider
 }
 
+// GetDictionaryList returns list of dictionaries
 func (controller *DictionaryController) GetDictionaryList(context *gin.Context) {
 	dbProvider := dicProvider.CreateDictionaryProvider("", "")
 	var result, err = dbProvider.GetDictionaryList()
@@ -22,6 +23,7 @@ func (controller *DictionaryController) GetDictionaryList(context *gin.Context) 
 	}
 }
 
+// GetDictionaryDesc returns description for the selected dictionary
 func (controller *DictionaryController) GetDictionaryDesc(context *gin.Context) {
 	dicCode := context.Param("dicCode")
 	var result, err = controller.dicProvider.GetDictionaryDesc(dicCode)
@@ -32,6 +34,7 @@ func (controller *DictionaryController) GetDictionaryDesc(context *gin.Context) 
 	}
 }
 
+//GetDictionaryItems returns all items in the dictionary
 func (controller *DictionaryController) GetDictionaryItems(context *gin.Context) {
 	dicCode := context.Param("dicCode")
 	var result, err = controller.dicProvider.GetDictionaryItems(dicCode)
@@ -42,6 +45,7 @@ func (controller *DictionaryController) GetDictionaryItems(context *gin.Context)
 	}
 }
 
+// GetDictionaryItem returns dictionary item
 func (controller *DictionaryController) GetDictionaryItem(context *gin.Context) {
 	dicCode := context.Param("dicCode")
 	code := context.Param("code")

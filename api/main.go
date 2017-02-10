@@ -1,6 +1,6 @@
 package main
 
-import app "../api/v1/infrastructure/app/"
+import app "../api/infrastructure/v1/app/"
 
 func main() {
 	app.Run()

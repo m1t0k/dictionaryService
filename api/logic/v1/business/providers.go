@@ -1,15 +1,14 @@
-package providers
+package business
 
 import (
 	Db "../db/"
-	MongoDb "../db/MongoDb/"
 	DicTypes "../types/"
 )
 
 // CreateDictionaryProvider create instance of dictionaryProvider
 func CreateDictionaryProvider(dbServer string, dbName string) IDictionaryProvider {
 	var provider dictionaryProvider
-	provider.dbProvider = MongoDb.CreateMongoDbDicProvider(dbServer, dbName)
+	provider.dbProvider = Db.CreateMongoDbDicProvider(dbServer, dbName)
 	return &provider
 }
 
