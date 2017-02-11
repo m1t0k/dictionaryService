@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -47,6 +48,13 @@ func TokenAuthHandler() gin.HandlerFunc {
 func PassResultsToPipeLine(context *gin.Context, result interface{}, err error) {
 	context.Set("error", err)
 	context.Set("result", result)
+}
+
+//GlobalTraceLogger traces request & response
+func GlobalTraceLogger(context *gin.Context) {
+	log.Printf("\nRequest:\n%s", context.Request)
+	context.Next()
+	log.Printf("\nResponse:\n%s", context.Writer)
 }
 
 //ProcessResultsHandler handles result from business logic
