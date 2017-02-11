@@ -1,7 +1,7 @@
 package db
 
 import (
-	DicTypes "../types/"
+	types "github.com/m1t0k/dictionaryService/api/logic/v1/types"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
@@ -32,28 +32,28 @@ func (db *mongoDbDicProvider) getMetaInfoCollection(session *mgo.Session) *mgo.C
 }
 
 // Get list of registered dictionaries
-func (db *mongoDbDicProvider) GetDictionaryList() ([]DicTypes.MetaInfoItem, error) {
+func (db *mongoDbDicProvider) GetDictionaryList() ([]types.MetaInfoItem, error) {
 	session, errConn := db.dbConnect()
 	if errConn != nil {
 		return nil, errConn
 	}
 	defer session.Close()
 
-	var metaInfo []DicTypes.MetaInfoItem
+	var metaInfo []types.MetaInfoItem
 	var metaInfoCollection = db.getMetaInfoCollection(session)
 	err := metaInfoCollection.Find(bson.M{}).All(&metaInfo)
 	return metaInfo, err
 }
 
 //Get dictionary description
-func (db *mongoDbDicProvider) GetDictionaryDesc(dicCode string) (*DicTypes.MetaInfoItem, error) {
+func (db *mongoDbDicProvider) GetDictionaryDesc(dicCode string) (*types.MetaInfoItem, error) {
 	session, errConn := db.dbConnect()
 	if errConn != nil {
 		return nil, errConn
 	}
 	defer session.Close()
 
-	var metaInfo DicTypes.MetaInfoItem
+	var metaInfo types.MetaInfoItem
 	var metaInfoCollection = db.getMetaInfoCollection(session)
 	err := metaInfoCollection.Find(nil).One(&metaInfo)
 	return &metaInfo, err
@@ -62,14 +62,14 @@ func (db *mongoDbDicProvider) GetDictionaryDesc(dicCode string) (*DicTypes.MetaI
 /*
 Get dictionary items
 */
-func (db *mongoDbDicProvider) GetDictionaryItems(dicCode string) ([]DicTypes.DicItem, error) {
+func (db *mongoDbDicProvider) GetDictionaryItems(dicCode string) ([]types.DicItem, error) {
 	session, errConn := db.dbConnect()
 	if errConn != nil {
 		return nil, errConn
 	}
 	defer session.Close()
 
-	var dicItems []DicTypes.DicItem
+	var dicItems []types.DicItem
 	var dicItemsCollection = db.getDicsCollection(session)
 	err := dicItemsCollection.Find(nil).All(&dicItems)
 	return dicItems, err
@@ -78,14 +78,14 @@ func (db *mongoDbDicProvider) GetDictionaryItems(dicCode string) ([]DicTypes.Dic
 /*
 Get dictionary item by code
 */
-func (db *mongoDbDicProvider) GetDictionaryItem(dicCode string, code string) (*DicTypes.DicItem, error) {
+func (db *mongoDbDicProvider) GetDictionaryItem(dicCode string, code string) (*types.DicItem, error) {
 	session, errConn := db.dbConnect()
 	if errConn != nil {
 		return nil, errConn
 	}
 	defer session.Close()
 
-	var dicItem DicTypes.DicItem
+	var dicItem types.DicItem
 	var dicItemsCollection = db.getDicsCollection(session)
 	err := dicItemsCollection.Find(nil).One(&dicItem)
 	return &dicItem, err

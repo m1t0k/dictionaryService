@@ -3,9 +3,9 @@ package app
 import (
 	"log"
 
-	appCfg "../config/"
 	controllers "../gin/controllers/"
-	middleware "../gin/middleware/"
+	config "github.com/m1t0k/dictionaryService/api/infrastructure/v1/config"
+	middleware "github.com/m1t0k/dictionaryService/api/infrastructure/v1/gin/middleware"
 
 	"github.com/gin-gonic/gin"
 )
@@ -13,7 +13,7 @@ import (
 //Run runs web app
 func Run() {
 
-	config, err := appCfg.ReadConfig()
+	settings, err := config.ReadConfig()
 	if err != nil {
 		log.Fatalf("Can't start http server:%s.\n", err)
 	}
@@ -24,7 +24,7 @@ func Run() {
 	router.Use(middleware.GlobalTraceLogger)
 
 	v1 := router.Group("/v1")
-	dicController := controllers.CreateDictionaryController(config)
+	dicController := controllers.CreateDictionaryController(settings)
 	dicController.Register(v1)
 
 	router.Use(middleware.ProcessResultsHandler)

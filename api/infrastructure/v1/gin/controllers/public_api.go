@@ -2,9 +2,9 @@ package ginControllers
 
 import (
 	dicProvider "../../../../logic/v1/business/"
-	Config "../../config/"
-	Middleware "../middleware/"
 	"github.com/gin-gonic/gin"
+	"github.com/m1t0k/dictionaryService/api/infrastructure/v1/config"
+	middleware "github.com/m1t0k/dictionaryService/api/infrastructure/v1/gin/middleware"
 )
 
 // DictionaryController implements http logic over DictionaryProvider
@@ -13,7 +13,7 @@ type DictionaryController struct {
 }
 
 // CreateDictionaryController instance of DictionaryController
-func CreateDictionaryController(settings Config.Configuration) *DictionaryController {
+func CreateDictionaryController(settings config.Configuration) *DictionaryController {
 	var controller DictionaryController
 	controller.dicProvider = dicProvider.CreateDictionaryProvider(settings.DbServer, settings.DbName)
 	return &controller
@@ -21,17 +21,17 @@ func CreateDictionaryController(settings Config.Configuration) *DictionaryContro
 
 //GetDictionaryItems returns all items in the dictionary
 func (controller *DictionaryController) GetDictionaryItems(context *gin.Context) {
-	dicCode := Middleware.ValidateStringParameterHanlder(context, "dicCode", true)
+	dicCode := middleware.ValidateStringParameterHanlder(context, "dicCode", true)
 	var result, err = controller.dicProvider.GetDictionaryItems(dicCode)
-	Middleware.PassResultsToPipeLine(context, result, err)
+	middleware.PassResultsToPipeLine(context, result, err)
 }
 
 // GetDictionaryItem returns dictionary item
 func (controller *DictionaryController) GetDictionaryItem(context *gin.Context) {
-	dicCode := Middleware.ValidateStringParameterHanlder(context, "dicCode", true)
-	code := Middleware.ValidateStringParameterHanlder(context, "code", true)
+	dicCode := middleware.ValidateStringParameterHanlder(context, "dicCode", true)
+	code := middleware.ValidateStringParameterHanlder(context, "code", true)
 	var result, err = controller.dicProvider.GetDictionaryItem(dicCode, code)
-	Middleware.PassResultsToPipeLine(context, result, err)
+	middleware.PassResultsToPipeLine(context, result, err)
 }
 
 // Register DictionaryController in router

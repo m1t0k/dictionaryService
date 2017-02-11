@@ -9,6 +9,9 @@ import (
 
 type empty struct{}
 
+const errorKey = "error"
+const resultKey = "result"
+
 func respondWithError(code int, resp interface{}, context *gin.Context) {
 	//resp := map[string]string{"error": message}
 	context.JSON(code, resp)
@@ -45,9 +48,10 @@ func TokenAuthHandler() gin.HandlerFunc {
 }
 */
 
+//PassResultsToPipeLine saves business logic results in the context
 func PassResultsToPipeLine(context *gin.Context, result interface{}, err error) {
-	context.Set("error", err)
-	context.Set("result", result)
+	context.Set(errorKey, err)
+	context.Set(resultKey, result)
 }
 
 //GlobalTraceLogger traces request & response
@@ -59,8 +63,8 @@ func GlobalTraceLogger(context *gin.Context) {
 
 //ProcessResultsHandler handles result from business logic
 func ProcessResultsHandler(context *gin.Context) {
-	err, _ := context.Get("error")
-	result, _ := context.Get("result")
+	err, _ := context.Get(errorKey)
+	result, _ := context.Get(resultKey)
 	if err != nil {
 		respondWithError(http.StatusInternalServerError, "Error occured.", context)
 	} else if result == nil {

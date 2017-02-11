@@ -2,8 +2,8 @@ package ginControllers
 
 import (
 	dicProvider "../../../../logic/v1/business/"
-	Config "../../config/"
 	"github.com/gin-gonic/gin"
+	config "github.com/m1t0k/dictionaryService/api/infrastructure/v1/config"
 )
 
 // DictionaryAdminController implements http logic over DictionaryProvider
@@ -12,7 +12,7 @@ type DictionaryAdminController struct {
 }
 
 // CreateDictionaryAdminController instance of DictionaryController
-func CreateDictionaryAdminController(settings Config.Configuration) *DictionaryAdminController {
+func CreateDictionaryAdminController(settings config.Configuration) *DictionaryAdminController {
 	var controller DictionaryAdminController
 	//controller.dicProvider = dicProvider.CreateDictionaryAdminProvider(settings.DbServer, settings.DbName)
 	return &controller
