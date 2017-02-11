@@ -24,8 +24,8 @@ func Run() {
 	//router.Use(middleware.GlobalTraceLogger)
 
 	//v1 := router.Group("/v1")
-	dicController := controllers.CreateDictionaryController(settings)
-	dicController.RegisterEx(router)
+	//dicController := controllers.CreateDictionaryController(settings)
+	controllers.RegisterDictionaryController(router)
 
 	router.Use(middleware.ProcessResultsHandler)
 

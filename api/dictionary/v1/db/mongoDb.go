@@ -1,6 +1,8 @@
 package db
 
 import (
+	"log"
+
 	types "github.com/m1t0k/dictionaryService/api/dictionary/v1/types"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
@@ -63,8 +65,12 @@ func (db *mongoDbDicProvider) GetDictionaryDesc(dicCode string) (*types.MetaInfo
 Get dictionary items
 */
 func (db *mongoDbDicProvider) GetDictionaryItems(dicCode string) ([]types.DicItem, error) {
+	log.Println("=== Db:GetDictionaryItems >>> ")
+
 	session, errConn := db.dbConnect()
 	if errConn != nil {
+		log.Println("=== Db:GetDictionaryItems: failed to connect ")
+
 		return nil, errConn
 	}
 	defer session.Close()
@@ -72,11 +78,14 @@ func (db *mongoDbDicProvider) GetDictionaryItems(dicCode string) ([]types.DicIte
 	var dicItems []types.DicItem
 	var dicItemsCollection = db.getDicsCollection(session)
 	err := dicItemsCollection.Find(bson.M{}).All(&dicItems)
-	/*if dicItems != nil {
-		log.Println("=== FOUND " + len(dicItems))
+	if dicItems != nil {
+		log.Println("=== Db:GetDictionaryItems: found DATA")
+
 	} else {
-		log.Println("=== DB IS EMPTY ===")
-	}*/
+		log.Println("=== Db:GetDictionaryItems: empty result set ")
+	}
+	log.Println("=== Db:GetDictionaryItems <<< ")
+
 	return dicItems, err
 }
 

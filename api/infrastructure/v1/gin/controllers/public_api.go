@@ -1,4 +1,4 @@
-package ginControllers
+package controllers
 
 import (
 	"log"
@@ -12,12 +12,14 @@ import (
 // DictionaryController implements http logic over DictionaryProvider
 type DictionaryController struct {
 	dicProvider dicProvider.IDictionaryPublicProvider
-}
+}:{}
 
 // CreateDictionaryController instance of DictionaryController
 func CreateDictionaryController(settings config.Configuration) *DictionaryController {
 	var controller DictionaryController
 	controller.dicProvider = dicProvider.CreateDictionaryProvider(settings.DbServer, settings.DbName)
+
+	log.Println("CreateDictionaryController:"+controller.dicProvider != nil)
 	return &controller
 }
 
@@ -40,7 +42,7 @@ func (controller *DictionaryController) GetDictionaryItem(context *gin.Context) 
 }
 
 // RegisterEx DictionaryController in router
-func (controller *DictionaryController) RegisterEx(router *gin.Engine) {
-	router.GET("/dics/:dicCode", controller.GetDictionaryItems)
-	router.GET("/dics/:dicCode/:code", controller.GetDictionaryItem)
+func RegisterDictionaryController(router *gin.Engine) {
+	router.GET("/dics/:dicCode", GetDictionaryItems)
+	router.GET("/dics/:dicCode/:code",GetDictionaryItem)
 }
