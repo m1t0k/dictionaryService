@@ -1,6 +1,6 @@
 package db
 
-import types "github.com/m1t0k/dictionaryService/api/logic/v1/types"
+import types "github.com/m1t0k/dictionaryService/api/dictionary/v1/types"
 
 // IDicDbProvider implement read access to the dictionaries
 type IDicDbProvider interface {

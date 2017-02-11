@@ -4,7 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/m1t0k/dictionaryService/api/infrastructure/v1/config"
 	middleware "github.com/m1t0k/dictionaryService/api/infrastructure/v1/gin/middleware"
-	dicProvider "github.com/m1t0k/dictionaryService/api/logic/v1/business"
+	dicProvider "github.com/m1t0k/dictionaryService/api/dictionary/v1/business"
 )
 
 // DictionaryController implements http logic over DictionaryProvider

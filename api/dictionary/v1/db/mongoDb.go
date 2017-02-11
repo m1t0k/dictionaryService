@@ -1,7 +1,7 @@
 package db
 
 import (
-	types "github.com/m1t0k/dictionaryService/api/logic/v1/types"
+	types "github.com/m1t0k/dictionaryService/api/dictionary/v1/types"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )

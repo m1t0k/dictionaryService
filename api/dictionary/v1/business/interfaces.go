@@ -1,7 +1,7 @@
 package business
 
 import (
-	types "github.com/m1t0k/dictionaryService/api/logic/v1/types"
+	types "github.com/m1t0k/dictionaryService/api/dictionary/v1/types"
 )
 
 // IDictionaryProvider implements read access to the dictionaries
