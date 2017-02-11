@@ -6,7 +6,7 @@ import (
 )
 
 // CreateDictionaryProvider create instance of dictionaryProvider
-func CreateDictionaryProvider(dbServer string, dbName string) IDictionaryProvider {
+func CreateDictionaryProvider(dbServer string, dbName string) IDictionaryPublicProvider {
 	var provider dictionaryProvider
 	provider.dbProvider = Db.CreateMongoDbDicProvider(dbServer, dbName)
 	return &provider
@@ -46,3 +46,6 @@ get event by id
 func (dicProvider *dictionaryProvider) GetDictionaryItem(dicCode string, code string) (*DicTypes.DicItem, error) {
 	return dicProvider.dbProvider.GetDictionaryItem(dicCode, code)
 }
+
+
+

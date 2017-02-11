@@ -9,7 +9,7 @@ import (
 
 // DictionaryController implements http logic over DictionaryProvider
 type DictionaryController struct {
-	dicProvider dicProvider.IDictionaryProvider
+	dicProvider dicProvider.IDictionaryPublicProvider
 }
 
 // CreateDictionaryController instance of DictionaryController
@@ -17,19 +17,6 @@ func CreateDictionaryController(settings Config.Configuration) *DictionaryContro
 	var controller DictionaryController
 	controller.dicProvider = dicProvider.CreateDictionaryProvider(settings.DbServer, settings.DbName)
 	return &controller
-}
-
-// GetDictionaryList returns list of dictionaries
-func (controller *DictionaryController) GetDictionaryList(context *gin.Context) {
-	var result, err = controller.dicProvider.GetDictionaryList()
-	Middleware.ProcessResultsHandler(result, err, context)
-}
-
-// GetDictionaryDesc returns description for the selected dictionary
-func (controller *DictionaryController) GetDictionaryDesc(context *gin.Context) {
-	dicCode := Middleware.ValidateStringParameterHanlder(context, "dicCode", true)
-	var result, err = controller.dicProvider.GetDictionaryDesc(dicCode)
-	Middleware.ProcessResultsHandler(result, err, context)
 }
 
 //GetDictionaryItems returns all items in the dictionary
@@ -49,8 +36,6 @@ func (controller *DictionaryController) GetDictionaryItem(context *gin.Context) 
 
 // Register DictionaryController in router
 func (controller *DictionaryController) Register(router *gin.RouterGroup) {
-	router.GET("/meta", controller.GetDictionaryList)
-	router.GET("/meta/:dicCode", controller.GetDictionaryDesc)
 	router.GET("/dics/:dicCode", controller.GetDictionaryItems)
 	router.GET("/dics/:dicCode/:code", controller.GetDictionaryItem)
 }
