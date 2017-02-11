@@ -6,17 +6,18 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-// dicItem stores dictionary item
+//DicItem stores dictionary item
 type DicItem struct {
 	ID          bson.ObjectId `json:"id" bson:"_id,omitempty"`
 	Code        string        `json:"code"`
 	Value       string        `json:"val"`
 	Description string        `json:"desc"`
+	DicCode     string        `json:"dicCode"`
 	CreatedAt   time.Time     `json:"crAt"`
 	UpdatedAt   time.Time     `json:"upAt"`
 }
 
-// dicItem stores dictionary item
+// MetaInfoItem stores dictionary item
 type MetaInfoItem struct {
 	ID          bson.ObjectId `json:"id" bson:"_id,omitempty"`
 	Code        string        `json:"code"`

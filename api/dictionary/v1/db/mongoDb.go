@@ -1,6 +1,8 @@
 package db
 
 import (
+	"log"
+
 	types "github.com/m1t0k/dictionaryService/api/dictionary/v1/types"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
@@ -71,7 +73,12 @@ func (db *mongoDbDicProvider) GetDictionaryItems(dicCode string) ([]types.DicIte
 
 	var dicItems []types.DicItem
 	var dicItemsCollection = db.getDicsCollection(session)
-	err := dicItemsCollection.Find(nil).All(&dicItems)
+	err := dicItemsCollection.Find(bson.M{}).All(&dicItems)
+	if dicItems != nil {
+		log.Println("=== FOUND " + len(*dicItems))
+	} else {
+		log.Println("=== DB IS EMPTY ===")
+	}
 	return dicItems, err
 }
 

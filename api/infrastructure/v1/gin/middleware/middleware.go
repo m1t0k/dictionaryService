@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -56,9 +55,9 @@ func PassResultsToPipeLine(context *gin.Context, result interface{}, err error) 
 
 //GlobalTraceLogger traces request & response
 func GlobalTraceLogger(context *gin.Context) {
-	log.Printf("\nRequest:\n%s", context.Request)
+	//	log.Printf("\nRequest:\n%s", context.Request)
 	context.Next()
-	log.Printf("\nResponse:\n%s", context.Writer)
+	//	log.Printf("\nResponse:\n%s", context.Writer)
 }
 
 //ProcessResultsHandler handles result from business logic

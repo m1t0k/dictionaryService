@@ -1,5 +1,5 @@
 {
     "DbServer": "localhost",
-    "DbName": "eventdb",
+    "DbName": "dictionarydb",
     "Port":"8999"
 }

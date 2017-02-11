@@ -32,7 +32,7 @@ func (controller *DictionaryAdminController) GetDictionaryDesc(context *gin.Cont
 }
 
 // Register DictionaryController in router
-func (controller *DictionaryAdminController) Register(router *gin.RouterGroup) {
+/*func (controller *DictionaryAdminController) Register(router *gin.RouterGroup) {
 	router.GET("/meta", controller.GetDictionaryList)
 	router.GET("/meta/:dicCode", controller.GetDictionaryDesc)
-}
+}*/
