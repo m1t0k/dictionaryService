@@ -2,7 +2,7 @@ package business
 
 import (
 	db "github.com/m1t0k/dictionaryService/api/dictionary/v1/db"
-	types "github.com/m1t0k/dictionaryService/api/logic/v1/types"
+	types "github.com/m1t0k/dictionaryService/api/dictionary/v1/types"
 )
 
 // CreateDictionaryProvider create instance of dictionaryProvider
