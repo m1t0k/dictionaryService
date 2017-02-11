@@ -3,8 +3,8 @@ package app
 import (
 	"log"
 
-	controllers "../gin/controllers/"
 	config "github.com/m1t0k/dictionaryService/api/infrastructure/v1/config"
+	controllers "github.com/m1t0k/dictionaryService/api/infrastructure/v1/gin/controllers/"
 	middleware "github.com/m1t0k/dictionaryService/api/infrastructure/v1/gin/middleware"
 
 	"github.com/gin-gonic/gin"
