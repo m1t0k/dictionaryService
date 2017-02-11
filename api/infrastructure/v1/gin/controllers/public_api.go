@@ -23,7 +23,7 @@ func CreateDictionaryController(settings Config.Configuration) *DictionaryContro
 func (controller *DictionaryController) GetDictionaryItems(context *gin.Context) {
 	dicCode := Middleware.ValidateStringParameterHanlder(context, "dicCode", true)
 	var result, err = controller.dicProvider.GetDictionaryItems(dicCode)
-	Middleware.ProcessResultsHandler(result, err, context)
+	Middleware.PassResultsToPipeLine(context, result, err)
 }
 
 // GetDictionaryItem returns dictionary item
@@ -31,7 +31,7 @@ func (controller *DictionaryController) GetDictionaryItem(context *gin.Context) 
 	dicCode := Middleware.ValidateStringParameterHanlder(context, "dicCode", true)
 	code := Middleware.ValidateStringParameterHanlder(context, "code", true)
 	var result, err = controller.dicProvider.GetDictionaryItem(dicCode, code)
-	Middleware.ProcessResultsHandler(result, err, context)
+	Middleware.PassResultsToPipeLine(context, result, err)
 }
 
 // Register DictionaryController in router

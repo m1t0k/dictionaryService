@@ -5,6 +5,8 @@ import (
 
 	appCfg "../config/"
 	controllers "../gin/controllers/"
+	middleware "../gin/middleware/"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -21,6 +23,7 @@ func Run() {
 
 	dicController := controllers.CreateDictionaryController(config)
 	dicController.Register(v1)
+	router.Use(middleware.ProcessResultsHandler)
 
 	err = router.Run(":" + config.Port)
 	if err != nil {
