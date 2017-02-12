@@ -3,10 +3,10 @@ package app
 import (
 	"log"
 
-	controllers "../gin/controllers"
-	config "github.com/m1t0k/dictionaryService/api/infrastructure/v1/config"
-	middleware "github.com/m1t0k/dictionaryService/api/infrastructure/v1/gin/middleware"
+	config "../config"
 
+	controllers "../gin/controllers/"
+	middleware "../gin/middleware/"
 	"github.com/gin-gonic/gin"
 )
 
@@ -19,15 +19,10 @@ func Run() {
 	}
 	router := gin.New()
 
-	//router.Use(gin.Recovery())
-	//router.Use(gin.Logger)
-	//router.Use(middleware.GlobalTraceLogger)
-
+	router.Use(gin.Recovery())
+	router.Use(middleware.GlobalTraceLogger)
 	//v1 := router.Group("/v1")
-	//dicController := controllers.CreateDictionaryController(settings)
 	controllers.RegisterDictionaryController(router)
-
-	router.Use(middleware.ProcessResultsHandler)
 
 	err = router.Run(":" + settings.Port)
 	if err != nil {

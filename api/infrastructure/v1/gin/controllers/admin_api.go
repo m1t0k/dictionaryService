@@ -1,9 +1,9 @@
 package controllers
 
 import (
+	dicProvider "../../../../dictionary/v1/business"
+	config "../../config"
 	"github.com/gin-gonic/gin"
-	dicProvider "github.com/m1t0k/dictionaryService/api/dictionary/v1/business"
-	config "github.com/m1t0k/dictionaryService/api/infrastructure/v1/config"
 )
 
 // DictionaryAdminController implements http logic over DictionaryProvider

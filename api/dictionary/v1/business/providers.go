@@ -1,20 +1,14 @@
 package business
 
 import (
-	"log"
-
-	db "github.com/m1t0k/dictionaryService/api/dictionary/v1/db"
-	types "github.com/m1t0k/dictionaryService/api/dictionary/v1/types"
+	db "../db/"
+	types "../types/"
 )
 
 // CreateDictionaryProvider create instance of dictionaryProvider
 func CreateDictionaryProvider(dbServer string, dbName string) IDictionaryPublicProvider {
-	log.Println("=== CreateDictionaryProvider >>> ")
-
 	var provider dictionaryProvider
 	provider.dbProvider = db.CreateMongoDbDicProvider(dbServer, dbName)
-	log.Println("=== CreateDictionaryProvider <<< ")
-
 	return &provider
 }
 
@@ -37,11 +31,7 @@ func (dicProvider *dictionaryProvider) GetDictionaryDesc(dicCode string) (*types
 */
 
 func (dicProvider *dictionaryProvider) GetDictionaryItems(dicCode string) ([]types.DicItem, error) {
-	log.Println("=== Provider:GetDictionaryItems >>> ")
-	result, err := dicProvider.dbProvider.GetDictionaryItems(dicCode)
-	log.Println("===  Provider:GetDictionaryItems <<< ")
-
-	return result, err
+	return dicProvider.dbProvider.GetDictionaryItems(dicCode)
 }
 
 /*

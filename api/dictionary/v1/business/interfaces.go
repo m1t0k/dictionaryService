@@ -1,10 +1,10 @@
 package business
 
 import (
-	types "github.com/m1t0k/dictionaryService/api/dictionary/v1/types"
+	types "../types/"
 )
 
-// IDictionaryProvider implements read access to the dictionaries
+// IDictionaryPublicProvider implements public read access to the dictionaries
 type IDictionaryPublicProvider interface {
 	GetDictionaryItems(dicCode string) ([]types.DicItem, error)
 	GetDictionaryItem(dicCode string, code string) (*types.DicItem, error)

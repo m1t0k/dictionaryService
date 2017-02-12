@@ -3,7 +3,7 @@ package db
 import (
 	"log"
 
-	types "github.com/m1t0k/dictionaryService/api/dictionary/v1/types"
+	types "../types"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
@@ -65,8 +65,6 @@ func (db *mongoDbDicProvider) GetDictionaryDesc(dicCode string) (*types.MetaInfo
 Get dictionary items
 */
 func (db *mongoDbDicProvider) GetDictionaryItems(dicCode string) ([]types.DicItem, error) {
-	log.Println("=== Db:GetDictionaryItems >>> ")
-
 	session, errConn := db.dbConnect()
 	if errConn != nil {
 		log.Println("=== Db:GetDictionaryItems: failed to connect ")
@@ -77,15 +75,10 @@ func (db *mongoDbDicProvider) GetDictionaryItems(dicCode string) ([]types.DicIte
 
 	var dicItems []types.DicItem
 	var dicItemsCollection = db.getDicsCollection(session)
-	err := dicItemsCollection.Find(bson.M{}).All(&dicItems)
-	if dicItems != nil {
-		log.Println("=== Db:GetDictionaryItems: found DATA")
-
-	} else {
-		log.Println("=== Db:GetDictionaryItems: empty result set ")
+	err := dicItemsCollection.Find(bson.M{"dcode": dicCode}).All(&dicItems)
+	if err == mgo.ErrNotFound {
+		return nil, nil
 	}
-	log.Println("=== Db:GetDictionaryItems <<< ")
-
 	return dicItems, err
 }
 
@@ -101,6 +94,9 @@ func (db *mongoDbDicProvider) GetDictionaryItem(dicCode string, code string) (*t
 
 	var dicItem types.DicItem
 	var dicItemsCollection = db.getDicsCollection(session)
-	err := dicItemsCollection.Find(nil).One(&dicItem)
+	err := dicItemsCollection.Find(bson.M{"dcode": dicCode, "code": code}).One(&dicItem)
+	if err == mgo.ErrNotFound {
+		return nil, nil
+	}
 	return &dicItem, err
 }
