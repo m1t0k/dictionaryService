@@ -12,19 +12,19 @@ import (
 
 //Run runs web app
 func Run() {
-
-	settings, err := config.ReadConfig()
+	config, err := config.ReadConfig()
 	if err != nil {
 		log.Fatalf("Can't start http server:%s.\n", err)
 	}
-	router := gin.New()
 
+	router := gin.New()
 	router.Use(gin.Recovery())
 	router.Use(middleware.GlobalTraceLogger)
-	//v1 := router.Group("/v1")
-	controllers.RegisterDictionaryController(router)
 
-	err = router.Run(":" + settings.Port)
+	v1 := router.Group("/v1")
+	controllers.RegisterDictionaryController(v1, config)
+
+	err = router.Run(":" + config.Port)
 	if err != nil {
 		log.Fatalf("Can't start http server:%s.\n", err)
 	}

@@ -2,6 +2,7 @@ package controllers
 
 import (
 	dicProvider "../../../../dictionary/v1/business"
+	config "../../config"
 	httputils "../httputils"
 	"github.com/gin-gonic/gin"
 )
@@ -34,13 +35,13 @@ func (controller *DictionaryController) GetDictionaryItem(context *gin.Context) 
 }
 
 // RegisterDictionaryController register routes for DictionaryController
-func RegisterDictionaryController(router *gin.Engine) {
+func RegisterDictionaryController(router *gin.RouterGroup, configSettings config.Configuration) {
 	router.GET("/dics/:dicCode", func(c *gin.Context) {
-		controller := CreateDictionaryController("localhost", "dictionarydb")
+		controller := CreateDictionaryController(configSettings.DbServer, configSettings.DbName)
 		controller.GetDictionaryItems(c)
 	})
 	router.GET("/dics/:dicCode/:code", func(c *gin.Context) {
-		controller := CreateDictionaryController("localhost", "dictionarydb")
+		controller := CreateDictionaryController(configSettings.DbServer, configSettings.DbName)
 		controller.GetDictionaryItem(c)
 	})
 }
