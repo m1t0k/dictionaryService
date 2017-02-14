@@ -73,7 +73,7 @@ func (db *mongoDbDicProvider) GetDictionaryItems(dicCode string) ([]types.DicIte
 	}
 	defer session.Close()
 
-	var dicItems []types.DicItem
+	var dicItems []types.DicItem = []types.DicItem{}
 	var dicItemsCollection = db.getDicsCollection(session)
 	err := dicItemsCollection.Find(bson.M{"dcode": dicCode}).All(&dicItems)
 	if err == mgo.ErrNotFound {

@@ -1,18 +1,16 @@
 package middleware
 
 import (
-	"log"
-
 	logger "../../../../infrastructure/logger/v1"
+	utils "../../../../infrastructure/utils/v1"
+
 	"github.com/gin-gonic/gin"
 )
 
+//GlobalTraceLogger trace all requests & responses
 func GlobalTraceLogger(context *gin.Context) {
-	logger.Debug("=== GlobalTraceLogger >>>>>>>>>")
-	log.Println("=== GlobalTraceLogger >>>")
-	logger.Debugf("\nRequest:\n%s", context.Request)
+	id := utils.NewGuid()
+	logger.Debugf("\nRequest - %s:\n%s", id, context.Request)
 	context.Next()
-	logger.Debugf("\nResponse:\n%s", context.Writer)
-	log.Println("=== GlobalTraceLogger <<<<")
-
+	logger.Debugf("\nResponse -%s:\n%s", id, context.Writer)
 }
