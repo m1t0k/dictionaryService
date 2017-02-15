@@ -1,9 +1,9 @@
 package controllers
 
 import (
-	dicProvider "../../../../dictionary/v1/business"
-	config "../../config"
-	httputils "../httputils"
+	dicProvider "../../../../dictionary/v1/business/"
+	config "../../config/"
+	httputils "../httputils/"
 	"github.com/gin-gonic/gin"
 )
 
@@ -15,7 +15,7 @@ type DictionaryController struct {
 // CreateDictionaryController creates instance of dictionary controller``
 func CreateDictionaryController(dbServer string, dbName string) *DictionaryController {
 	var controller DictionaryController
-	controller.dicProvider = dicProvider.CreateDictionaryProvider(dbServer, dbName)
+	controller.dicProvider = dicProvider.CreatePublicDictionaryProvider(dbServer, dbName)
 	return &controller
 }
 

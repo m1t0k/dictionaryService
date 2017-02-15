@@ -11,9 +11,9 @@ type IPublicDictionaryDbProvider interface {
 // IAdminDictionaryDbProvider implements public read access to the dictionaries
 type IAdminDictionaryDbProvider interface {
 	IPublicDictionaryDbProvider
-	CreateDictionaryItem(item *types.DicItem) (bool, error)
-	UpdateDictionaryItem(item *types.DicItem) (bool, error)
-	DeleteDictionaryItem(dicCode string, code string) (bool, error)
+	CreateDictionaryItem(item *types.DicItem) error
+	UpdateDictionaryItem(item *types.DicItem) error
+	DeleteDictionaryItem(dicCode string, code string) error
 }
 
 // IDicDbProvider implement read access to the dictionaries

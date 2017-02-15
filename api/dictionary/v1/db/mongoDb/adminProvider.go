@@ -1,6 +1,8 @@
 package mongoDb
 
 import (
+	"errors"
+
 	db "../"
 	types "../../types"
 	"gopkg.in/mgo.v2/bson"
@@ -20,50 +22,44 @@ func CreateAdminMongoDbDictionaryProvider(dbServer string, dbName string) db.IAd
 }
 
 //
-func (db *AdminDictionaryDbProvider) CreateDictionaryItem(item *types.DicItem) (bool, error) {
+func (db *AdminDictionaryDbProvider) CreateDictionaryItem(item *types.DicItem) error {
 	if item == nil || len(item.Code) <= 0 || len(item.DCode) <= 0 {
-		return false, nil // to do fix later
+		return errors.New("Invalid item")
 	}
 	session, errConn := Connect(db.DbServer)
 	if errConn != nil {
-		return false, errConn
+		return errConn
 	}
 	defer session.Close()
 
 	var collection = GetCollection(session, db.DbName, "dics")
-	err := collection.Insert(item)
-
-	return err == nil, err
+	return collection.Insert(item)
 }
 
 //UpdateDictionaryItem updates dictionary item
-func (db *AdminDictionaryDbProvider) UpdateDictionaryItem(item *types.DicItem) (bool, error) {
+func (db *AdminDictionaryDbProvider) UpdateDictionaryItem(item *types.DicItem) error {
 	if item == nil || len(item.Code) <= 0 || len(item.DCode) <= 0 {
-		return false, nil // to do fix later
+		return errors.New("Invalid item")
 	}
 
 	session, errConn := Connect(db.DbServer)
 	if errConn != nil {
-		return false, errConn
+		return errConn
 	}
 	defer session.Close()
 
 	var collection = GetCollection(session, db.DbName, "dics")
-	err := collection.Update(bson.M{"_id": item.ID}, item)
-
-	return err == nil, err
+	return collection.Update(bson.M{"_id": item.ID}, item)
 }
 
 //DeleteDictionaryItem deletes dictionary item
-func (db *AdminDictionaryDbProvider) DeleteDictionaryItem(dicCode string, code string) (bool, error) {
+func (db *AdminDictionaryDbProvider) DeleteDictionaryItem(dicCode string, code string) error {
 	session, errConn := Connect(db.DbServer)
 	if errConn != nil {
-		return false, errConn
+		return errConn
 	}
 	defer session.Close()
 
 	var collection = GetCollection(session, db.DbName, "dics")
-	err := collection.Remove(bson.M{"dcode": dicCode, "code": code})
-
-	return err == nil, err
+	return collection.Remove(bson.M{"dcode": dicCode, "code": code})
 }
