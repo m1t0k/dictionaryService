@@ -9,7 +9,7 @@ import (
 
 // DictionaryController implements http logic over DictionaryProvider
 type DictionaryController struct {
-	dicProvider dicProvider.IDictionaryPublicProvider
+	dicProvider dicProvider.IPublicDictionaryProvider
 }
 
 // CreateDictionaryController creates instance of dictionary controller``

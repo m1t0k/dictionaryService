@@ -31,3 +31,14 @@ func ReturnJSONResults(context *gin.Context, result interface{}, isEmptyResult b
 		context.JSON(http.StatusOK, result)
 	}
 }
+
+
+func Save(context *gin.Context, result interface{}, isEmptyResult bool, err error) {
+	if err != nil {
+		respondWithError(http.StatusInternalServerError, err, context)
+	} else if isEmptyResult {
+		context.JSON(http.StatusNotFound, nil)
+	} else {
+		context.JSON(http.StatusOK, result)
+	}
+}

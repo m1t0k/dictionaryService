@@ -4,8 +4,8 @@ import (
 	types "../types/"
 )
 
-// IDictionaryPublicProvider implements public read access to the dictionaries
-type IDictionaryPublicProvider interface {
+// IPublicDictionaryProvider implements public read access to the dictionaries
+type IPublicDictionaryProvider interface {
 	GetDictionaryItems(dicCode string) ([]types.DicItem, error)
 	GetDictionaryItem(dicCode string, code string) (*types.DicItem, error)
 }

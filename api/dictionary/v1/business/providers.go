@@ -2,13 +2,14 @@ package business
 
 import (
 	db "../db/"
+	mongoDb "../db/mongoDb/"
 	types "../types/"
 )
 
 // CreateDictionaryProvider create instance of dictionaryProvider
-func CreateDictionaryProvider(dbServer string, dbName string) IDictionaryPublicProvider {
+func CreateDictionaryProvider(dbServer string, dbName string) IPublicDictionaryProvider {
 	var provider dictionaryProvider
-	provider.dbProvider = db.CreateMongoDbDicProvider(dbServer, dbName)
+	provider.dbProvider = mongoDb.CreatePublicMongoDbDictionaryProvider(dbServer, dbName)
 	return &provider
 }
 
@@ -16,27 +17,13 @@ func CreateDictionaryProvider(dbServer string, dbName string) IDictionaryPublicP
 DictionaryProvider type
 */
 type dictionaryProvider struct {
-	dbProvider db.IDicDbProvider
+	dbProvider db.IPublicDictionaryDbProvider
 }
-
-/*
-func (dicProvider *dictionaryProvider) GetDictionaryList() ([]types.MetaInfoItem, error) {
-	return dicProvider.dbProvider.GetDictionaryList()
-}
-
-
-func (dicProvider *dictionaryProvider) GetDictionaryDesc(dicCode string) (*types.MetaInfoItem, error) {
-	return dicProvider.dbProvider.GetDictionaryDesc(dicCode)
-}
-*/
 
 func (dicProvider *dictionaryProvider) GetDictionaryItems(dicCode string) ([]types.DicItem, error) {
 	return dicProvider.dbProvider.GetDictionaryItems(dicCode)
 }
 
-/*
-get event by id
-*/
 func (dicProvider *dictionaryProvider) GetDictionaryItem(dicCode string, code string) (*types.DicItem, error) {
 	return dicProvider.dbProvider.GetDictionaryItem(dicCode, code)
 }
