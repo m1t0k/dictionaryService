@@ -1,9 +1,9 @@
 package business
 
 import (
-	db "../db/"
-	mongoDb "../db/mongoDb/"
-	types "../types/"
+	db "../db"
+	mongoDb "../db/mongoDb"
+	types "../types"
 )
 
 // CreatePublicDictionaryProvider create instance of dictionaryProvider

@@ -1,10 +1,10 @@
 package controllers
 
 import (
-	dicProvider "../../../../dictionary/v1/business/"
-	types "../../../../dictionary/v1/types/"
-	config "../../config/"
-	httputils "../httputils/"
+	dicProvider "../../../../dictionary/v1/business"
+	types "../../../../dictionary/v1/types"
+	config "../../config"
+	httputils "../httputils"
 	"github.com/gin-gonic/gin"
 )
 

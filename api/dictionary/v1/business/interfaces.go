@@ -1,7 +1,7 @@
 package business
 
 import (
-	types "../types/"
+	types "../types"
 )
 
 // IPublicDictionaryProvider implements public read access to the dictionaries

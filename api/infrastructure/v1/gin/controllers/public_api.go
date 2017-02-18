@@ -1,9 +1,9 @@
 package controllers
 
 import (
-	dicProvider "../../../../dictionary/v1/business/"
-	config "../../config/"
-	httputils "../httputils/"
+	dicProvider "../../../../dictionary/v1/business"
+	config "../../config"
+	httputils "../httputils"
 	"github.com/gin-gonic/gin"
 )
 

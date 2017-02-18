@@ -5,8 +5,8 @@ import (
 
 	config "../config"
 
-	controllers "../gin/controllers/"
-	middleware "../gin/middleware/"
+	controllers "../gin/controllers"
+	middleware "../gin/middleware"
 	"github.com/gin-gonic/gin"
 )
 
