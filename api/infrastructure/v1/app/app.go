@@ -21,8 +21,11 @@ func Run() {
 	router.Use(gin.Recovery())
 	router.Use(middleware.GlobalTraceLogger)
 
-	v1 := router.Group("/v1")
-	controllers.RegisterDictionaryController(v1, config)
+	v1Public := router.Group("/api/v1")
+	controllers.RegisterDictionaryController(v1Public, config)
+
+	v1Admin := router.Group("/api/admin/v1")
+	controllers.RegisterAdminDictionaryController(v1Admin, config)
 
 	err = router.Run(":" + config.Port)
 	if err != nil {
