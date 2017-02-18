@@ -5,11 +5,19 @@ import (
 	"os"
 )
 
+//LogSettings stores loging configuration
+type LogSettings struct {
+	Level    string
+	StdOut   string
+	FileName string
+}
+
 //Configuration stores configuration
 type Configuration struct {
 	DbServer string
 	DbName   string
 	Port     string
+	Logger   LogSettings
 }
 
 //ReadConfig reads Global Configuration

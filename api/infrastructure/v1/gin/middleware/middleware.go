@@ -10,7 +10,7 @@ import (
 //GlobalTraceLogger trace all requests & responses
 func GlobalTraceLogger(context *gin.Context) {
 	id := utils.NewGuid()
-	logger.Debugf("\nRequest - %s:\n%s", id, context.Request)
+	logger.WithField("requestId", id).Debug(context.Request)
 	context.Next()
-	logger.Debugf("\nResponse -%s:\n%s", id, context.Writer)
+	logger.WithField("requestId", id).Debug(context.Writer)
 }

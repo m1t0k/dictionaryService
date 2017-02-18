@@ -1,5 +1,10 @@
 {
     "DbServer": "localhost",
     "DbName": "dictionarydb",
-    "Port":"8999"
+    "Port":"8999",
+    "Logger":{
+        "Level":"Debug",
+        "StdOut":"File",
+        "FileName":"app.log"
+    }
 }

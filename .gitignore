@@ -20,6 +20,7 @@ _cgo_export.*
 _testmain.go
 
 *.exe
+*.exe*
 *.test
 *.prof
 system-config.js*
@@ -31,3 +32,4 @@ bower_components
 aot/*
 dist/*
 yarn.lock
+logs

@@ -1,17 +1,9 @@
 package logger
 
-import (
-	"os"
+import "github.com/Sirupsen/logrus"
 
-	logrus "github.com/m1t0k/logrus"
-)
-
-var logger *logrus.Logger
-
-func init() {
-	logger = logrus.New()
-	logger.Level = logrus.DebugLevel
-	logger.Out = os.Stdout
+func WithField(key string, value interface{}) *logrus.Entry {
+	return logger.WithField(key, value)
 }
 
 func Debug(message string) {
