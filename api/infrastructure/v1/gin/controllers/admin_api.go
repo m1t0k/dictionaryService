@@ -5,7 +5,7 @@ import (
 	types "../../../../dictionary/v1/types"
 	config "../../config"
 	httputils "../httputils"
-	"github.com/gin-gonic/gin"
+	"gopkg.in/gin-gonic/gin.v1"
 )
 
 // AdminDictionaryController implements http logic over DictionaryProvider

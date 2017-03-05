@@ -2,12 +2,13 @@ package app
 
 import (
 	"log"
+	"time"
 
 	config "../config"
-
 	controllers "../gin/controllers"
 	middleware "../gin/middleware"
-	"github.com/gin-gonic/gin"
+	"github.com/m1t0k/gin-cors"
+	"gopkg.in/gin-gonic/gin.v1"
 )
 
 //Run runs web app
@@ -18,6 +19,15 @@ func Run() {
 	}
 
 	router := gin.New()
+	router.Use(cors.Middleware(cors.Config{
+		Origins:         "*",
+		Methods:         "GET, PUT, POST, DELETE",
+		RequestHeaders:  "Origin, Authorization, Content-Type",
+		ExposedHeaders:  "",
+		MaxAge:          50 * time.Second,
+		Credentials:     true,
+		ValidateHeaders: false,
+	}))
 	router.Use(gin.Recovery())
 	router.Use(middleware.GlobalTraceLogger)
 

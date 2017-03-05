@@ -4,7 +4,7 @@ import (
 	dicProvider "../../../../dictionary/v1/business"
 	config "../../config"
 	httputils "../httputils"
-	"github.com/gin-gonic/gin"
+	"gopkg.in/gin-gonic/gin.v1"
 )
 
 // DictionaryController implements http logic over DictionaryProvider

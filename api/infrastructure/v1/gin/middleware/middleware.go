@@ -4,7 +4,7 @@ import (
 	logger "../../../../infrastructure/logger/v1"
 	utils "../../../../infrastructure/utils/v1"
 
-	"github.com/gin-gonic/gin"
+	"gopkg.in/gin-gonic/gin.v1"
 )
 
 //GlobalTraceLogger trace all requests & responses
